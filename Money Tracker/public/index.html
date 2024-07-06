@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-bank' viewBox='0 0 16 16'%3E%3Cpath d='m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.5.5 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89zM3.777 3h8.447L8 1zM2 6v7h1V6zm2 0v7h2.5V6zm3.5 0v7h1V6zm2 0v7H12V6zM13 6v7h1V6zm2-1V4H1v1zm-.39 9H1.39l-.25 1h13.72z'/%3E%3C/svg%3E">
+    <title>Money Tracker WebApp</title>
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url('https://www.freshbooks.com/wp-content/uploads/2022/02/expense-tracking.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: rgb(172, 211, 246);
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-left: 220px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: calc(100% - 40px);
+            width: 950px;
+        }
+
+        .input-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .input-section label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .input-section input,
+        .input-section select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            flex: 1;
+            max-width: calc(25% - 10px);
+        }
+
+        .btn{
+            padding: 8px 20px;
+            background-color: rgb(63, 194, 46);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left:420px ;
+        }
+
+        .expenses-list {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgb(102, 52, 39);
+            color: rgb(253, 253, 250);
+        }
+
+        tfoot td {
+            font-weight: bold;
+        }
+
+        .delete-btn {
+            padding: 8px 20px;
+            background-color: rgb(182, 39, 39);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <form action="/add" method="POST">
+                <h1>Money Tracker App</h1>
+                <div class="input-section">
+                    <label for="category_select">Category: </label>
+                    <select id="category_select" name="category_select">
+                        <option value="" selected disabled>Select Category</option>
+                        <option value="Income">Earnings</option>
+                        <option value="Expense">Spendings</option>
+                    </select>
+                    <label for="amount_input">Amount:</label>
+                    <input type="number" id="amount_input" name="amount_input">
+                    <label for="info">Details</label>
+                    <input type="text" id="info" name="info">
+                    <label for="date_input">Date:</label>
+                    <input type="date" id="date_input" name="date_input">
+                </div>
+                <button id="add_btn" class="btn">Add</button>
+            </form>
+            <br>
+            <div class="expenses-list">
+                <h2>Expenses and Incomes List</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Info</th>
+                            <th>Date</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expense-table-body">
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" id="total-amount">Total:</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        let expenses = [];
+        let totalAmount = 0;
+        const categorySelect = document.getElementById('category_select');
+        const amountInput = document.getElementById('amount_input');
+        const infoInput = document.getElementById('info');
+        const dateInput = document.getElementById('date_input');
+        const addBtn = document.getElementById('add_btn');
+        const expenseTableBody = document.getElementById('expense-table-body');
+        const totalAmountCell = document.getElementById('total-amount');
+
+        addBtn.addEventListener('click', function () {
+            const category = categorySelect.value;
+            const info = infoInput.value;
+            const amount = Number(amountInput.value);
+            const date = dateInput.value;
+
+            if (category === '') {
+                alert('Please select a category');
+                return;
+            }
+            if (isNaN(amount) || amount <= 0) {
+                alert('Please enter a valid amount');
+                return;
+            }
+            if (info === '') {
+                alert('Please enter valid information');
+                return;
+            }
+            if (date === '') {
+                alert('Please select a date');
+                return;
+            }
+            expenses.push({ category, amount, info, date });
+            if (category === 'Income') {
+                totalAmount += amount;
+            }
+            if (category === 'Expense') {
+                totalAmount -= amount;
+            }
+            totalAmountCell.textContent = totalAmount;
+
+            const newRow = expenseTableBody.insertRow();
+
+            const categoryCell = newRow.insertCell();
+            const amountCell = newRow.insertCell();
+            const infoCell = newRow.insertCell();
+            const dateCell = newRow.insertCell();
+            const deleteCell = newRow.insertCell();
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.classList.add('delete-btn');
+            deleteBtn.addEventListener('click', function () {
+                expenses.splice(expenses.indexOf(expense), 1);
+                if (category === 'Income') {
+                    totalAmount -= amount;
+                }
+                if (category === 'Expense') {
+                    totalAmount += amount;
+                }
+
+                totalAmountCell.textContent = totalAmount;
+                expenseTableBody.removeChild(newRow);
+            });
+            const expense = expenses[expenses.length - 1];
+            categoryCell.textContent = expense.category;
+            amountCell.textContent = expense.amount;
+            infoCell.textContent = expense.info;
+            dateCell.textContent = expense.date;
+            deleteCell.appendChild(deleteBtn);
+
+            // Clear input values
+            categorySelect.value = '';
+            amountInput.value = '';
+            infoInput.value = '';
+            dateInput.value = '';
+        });
+    </script>
+</body>
+</html>

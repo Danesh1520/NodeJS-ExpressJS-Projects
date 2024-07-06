@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chat-square-fill' viewBox='0 0 16 16'%3E%3Cpath d='M2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z'/%3E%3C/svg%3E">
+    <title>Blog Website</title>
+    <style>
+      body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          background-image: url('https://st2.depositphotos.com/4107269/7704/i/450/depositphotos_77040729-stock-photo-vacation-entertainment-concept.jpg');
+          background-size: cover;
+          background-repeat: no-repeat;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+      }
+
+      .container {
+          max-width: 800px;
+          width: 700px;
+          background-color: rgba(255, 255, 255, 0.8);
+          border-radius: 10px;
+          padding: 20px;
+          box-sizing: border-box;
+          text-align: center;
+          color: #333;
+      }
+
+      .form-container {
+          margin-top: 20px;
+      }
+
+      .form-group {
+          margin-bottom: 20px;
+      }
+
+      .form-group label {
+          display: block;
+          margin-bottom: 5px;
+          text-align: left;
+          font-weight: bold;
+      }
+
+      .form-group input,
+      .form-group textarea {
+          width: 100%;
+          padding: 10px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          box-sizing: border-box;
+      }
+
+      .form-group textarea {
+          resize: vertical;
+      }
+
+      .btn-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 20px;
+      }
+
+      .btn {
+          padding: 10px 20px;
+          font-size: 16px;
+          border-radius: 5px;
+          text-decoration: none;
+          color: #fff;
+          transition: background-color 0.3s ease;
+      }
+
+      .btn-primary {
+          background-color: #007bff;
+          border: 1px solid #007bff;
+          margin-right: 10px;
+      }
+
+      .btn-secondary {
+          background-color: #6c757d;
+          border: 1px solid #6c757d;
+      }
+
+      .btn:hover {
+          filter: brightness(90%);
+      }
+  </style>
+</head>
+<body>
+   <div class="box">
+      <div class="container">
+        <h1 class="mb-4">Edit Article</h1>
+         <form action="/articles/<%=article.id %>?_method=PUT" method="POST">
+            <%- include('form_field') %>
+         </form>
+      </div>
+   </div>
+</body>
+</html>
