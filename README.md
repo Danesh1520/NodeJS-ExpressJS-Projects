@@ -1,11 +1,38 @@
 
-# Web Development Projects
+# NodeJS-ExpressJS-Projects
 
-This repository contains various web development projects, including a Blog Site and a Money Tracker application. Each project is built using different technologies and frameworks.
+This repository contains various NodeJS-ExpressJS-Projects, including a Blog Site and a Money Tracker application. Each project is built using different technologies and frameworks.
+
+## Project Structure
+
+```
+├── Blog Site/
+│   ├── models/
+│   ├── routes/
+│   ├── view-articles/
+│   ├── package-lock.json
+│   ├── package.json
+│   └── server.js
+│
+├── Money Tracker/
+│   ├── public/
+│   ├── index.js
+│   ├── package-lock.json
+│   ├── package.json
+│
+├── User Registration Form/
+│   ├── views/
+│   ├── App.js
+│   ├── User.js
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── style.css
+└── README.md
+```
 
 ## Projects
 
-### 1. Blog Site (App.js)
+### 1. User Registration Form (App.js)
 
 A blog site allowing users to create, read, update, and delete articles, with user authentication using Passport.js.
 
@@ -20,8 +47,8 @@ A blog site allowing users to create, read, update, and delete articles, with us
 1. **Clone the Repository**
 
    ```sh
-   git clone https://github.com/Danesh1520/Web_Development_Projects.git
-   cd Web_Development_Projects/Blog_Site
+   git clone https://github.com/Danesh1520/NodeJS-ExpressJS-Projects
+   cd NodeJS-ExpressJS-Projects/User Registration Form
    ```
 
 2. **Install Dependencies**
@@ -60,8 +87,8 @@ A blog site built with Express.js and MongoDB, allowing users to create, read, u
 1. **Clone the Repository**
 
    ```sh
-   git clone https://github.com/Danesh1520/Web_Development_Projects.git
-   cd Web_Development_Projects/Blog_Site
+   git clone https://github.com/Danesh1520/NodeJS-ExpressJS-Projects
+   cd Web_Development_Projects/Blog Site
    ```
 
 2. **Install Dependencies**
@@ -101,8 +128,8 @@ A money tracker application to manage and track your expenses and income.
 1. **Clone the Repository**
 
    ```sh
-   git clone https://github.com/Danesh1520/Web_Development_Projects.git
-   cd Web_Development_Projects/Money_Tracker
+   git clone https://github.com/Danesh1520/NodeJS-ExpressJS-Projects
+   cd Web_Development_Projects/Money Tracker
    ```
 
 2. **Install Dependencies**
@@ -122,17 +149,3 @@ A money tracker application to manage and track your expenses and income.
 4. **Usage**
 
    Open your web browser and go to `http://localhost:3000` to access the money tracker application. Add your income and expenses to keep track of your financial status.
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and create a pull request with your changes.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## Acknowledgements
-
-- Express.js for providing a robust framework.
-- MongoDB for database management.
-- Passport.js for authentication.
